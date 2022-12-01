@@ -1,9 +1,11 @@
 <template>
-  <div class="container"></div>
+  <div class="container">
+    <router-view />
+  </div>
 </template>
 
 <script>
-import { mapState, mapMutation, mapAction } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   name: "",
   components: {},
@@ -11,7 +13,6 @@ export default {
     return {};
   },
   props: [],
-  computed: {},
   watch: {},
   created() {},
   methods: {},
