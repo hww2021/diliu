@@ -6,7 +6,11 @@ const state = () => ({
   isLogin: false,
 });
 
-const getters = {};
+const getters = {
+  getIsLogin(state) {
+    return state.isLogin || localStorage.getItem("token");
+  },
+};
 
 const mutations = {
   setIsLogin(state, isLogin) {

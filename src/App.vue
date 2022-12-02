@@ -49,5 +49,8 @@ export default {
     height: 100vh;
     background-color: #4e4c60;
   }
+  .el-header {
+    border-bottom: 1px solid #dcdfe6;
+  }
 }
 </style>

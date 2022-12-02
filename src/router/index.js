@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "@/store";
 
 Vue.use(VueRouter);
 
@@ -40,7 +41,7 @@ const routes = [
             path: "/settings/roles",
             name: "RoleHome",
             component: () => import("@/views/settings/roles/RoleHome.vue"),
-            meta: { title: "角色管理" },
+            meta: { title: "角色管理", hide: true },
           },
           {
             path: "/settings/roles/add",
@@ -81,6 +82,14 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const isLogin = store.getters["login/getIsLogin"];
+  if (!isLogin && to.name !== "Login") {
+    next("/login");
+  }
+  next();
 });
 
 export default router;

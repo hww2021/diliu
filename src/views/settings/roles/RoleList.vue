@@ -1,5 +1,11 @@
 <template>
-  <div class="container"></div>
+  <div class="container">
+    <el-table :data="roleData" style="width: 100%">
+      <el-table-column prop="" label=""> </el-table-column>
+      <el-table-column prop="" label=""> </el-table-column>
+      <el-table-column prop="" label=""> </el-table-column>
+    </el-table>
+  </div>
 </template>
 
 <script>
@@ -8,7 +14,7 @@ export default {
   name: "",
   components: {},
   data() {
-    return {};
+    return { roleData: [] };
   },
   props: [],
   computed: {},

@@ -41,10 +41,10 @@
         </el-menu-item>
       </template>
     </el-menu>
-    <div class="dropdown">
+    <div class="submenu">
       <el-dropdown @command="handleCommand" placement="top" trigger="click">
         <span class="el-dropdown-link">
-          下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
+          {{ role }}<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown" :append-to-body="false" ref="downdiv">
           <el-dropdown-item command="info">个人信息</el-dropdown-item>
@@ -58,12 +58,14 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
+import * as api from "@/api/login.js";
 export default {
   name: "Sidebar",
   components: {},
   data() {
     return {
       logo: require("@/assets/logo.png"),
+      role: "",
     };
   },
   props: [],
@@ -73,7 +75,10 @@ export default {
     },
   },
   watch: {},
-  created() {},
+  async created() {
+    const { full_name } = await api.getAccount();
+    this.role = full_name;
+  },
   mounted() {
     this.$refs.newSpace.appendChild(this.$refs.downdiv.popperElm);
   },
@@ -85,8 +90,9 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-    handleCommand(command) {
+    async handleCommand(command) {
       if (command === "logout") {
+        await api.logout();
         this.$router.replace({ name: "Login" });
         localStorage.removeItem("token");
         this.setIsLogin("false");
@@ -122,7 +128,7 @@ export default {
       color: #fff !important;
     }
   }
-  .dropdown {
+  .submenu {
     position: absolute;
     bottom: 0;
     padding: 20px 50px;

@@ -1,14 +1,17 @@
 <template>
   <div class="container">
-    <router-view />
+    <user-panel />
+    <user-list />
   </div>
 </template>
 
 <script>
+import UserPanel from "@/views/settings/users/UserPanel.vue";
+import UserList from "@/views/settings/users/UserList.vue";
 import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   name: "",
-  components: {},
+  components: { UserPanel, UserList },
   data() {
     return {};
   },
