@@ -1,12 +1,17 @@
 <template>
-  <div class="container"></div>
+  <div class="container">
+    <role-panel />
+    <role-list />
+  </div>
 </template>
 
 <script>
+import RolePanel from "@/views/settings/roles/RolePanel.vue";
+import RoleList from "@/views/settings/roles/RoleList.vue";
 import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   name: "",
-  components: {},
+  components: { RolePanel, RoleList },
   data() {
     return {};
   },

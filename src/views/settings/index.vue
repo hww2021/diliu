@@ -14,8 +14,13 @@ export default {
   },
   props: [],
   watch: {},
-  created() {},
-  methods: {},
+  created() {
+    this.getRoleData();
+    this.getUserData();
+  },
+  methods: {
+    ...mapActions("global", ["getRoleData", "getUserData"]),
+  },
 };
 </script>
 
