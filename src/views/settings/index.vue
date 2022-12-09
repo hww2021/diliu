@@ -16,10 +16,10 @@ export default {
   watch: {},
   created() {
     this.getRoleData();
-    this.getUserData();
+    this.getSiteData();
   },
   methods: {
-    ...mapActions("global", ["getRoleData", "getUserData"]),
+    ...mapActions("global", ["getRoleData", "getSiteData"]),
   },
 };
 </script>

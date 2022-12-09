@@ -54,4 +54,8 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.el-autocomplete {
+  width: 100%;
+}
+</style>

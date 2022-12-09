@@ -30,6 +30,11 @@ function success(response) {
 function fail(error) {
   const { response } = error;
   const { status, data } = response || {};
+  if (status === 401) {
+    localStorage.removeItem("token");
+    store.commit("setIsLogin", false);
+    router.replace({ name: "Login" });
+  }
   return Promise.reject({
     status,
     message: (data && data.error_message) || "服务端错误",
