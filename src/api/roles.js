@@ -6,6 +6,8 @@ export async function getData(data) {
     ...data,
     o: "-updated_at",
     user_count: true,
+    id: data.id === "" ? undefined : data.id,
+    q: data.q === "" ? undefined : data.q,
   };
   const { count, results } = await api.get(
     `/services/uaa/api/v2/groups?${stringify(params)}`
@@ -20,4 +22,20 @@ export async function getData(data) {
     lastUpdatedTime: item.updated_at,
   }));
   return { roleData, count };
+}
+
+export function add(params) {
+  return api.post("/services/uaa/api/v2/groups", params);
+}
+
+export function getInfo(id) {
+  return api.get(`/services/uaa/api/v2/groups/${id}`);
+}
+
+export function edit(id, params) {
+  return api.put(`/services/uaa/api/v2/groups/${id}`, params);
+}
+
+export function del(id) {
+  return api.delete("/services/uaa/api/v2/groups/" + id);
 }

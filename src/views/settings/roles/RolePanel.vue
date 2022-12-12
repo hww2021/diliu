@@ -13,7 +13,7 @@
         ></el-autocomplete>
       </el-col>
       <el-col :span="1">
-        <el-button>新增</el-button>
+        <el-button @click="handleAdd">新增</el-button>
       </el-col>
     </el-row>
   </div>
@@ -21,6 +21,7 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
+import * as api from "@/api/roles.js";
 export default {
   name: "",
   components: {},
@@ -34,21 +35,40 @@ export default {
   watch: {},
   created() {},
   methods: {
+    ...mapMutations("roles", ["setParams"]),
+    ...mapActions("roles", ["getRoleData"]),
     querySearchAsync(queryString, cb) {
-      var restaurants = this.restaurants;
-      var results = queryString
-        ? restaurants.filter(this.createStateFilter(queryString))
-        : restaurants;
-
       clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => {
-        cb(results);
-      }, 3000 * Math.random());
+      this.timeout = setTimeout(async () => {
+        try {
+          const { roleData } = await api.getData({ q: queryString });
+          const newRoleData = roleData.length
+            ? roleData.map((item) => ({
+                id: item.id,
+                value: item.name,
+              }))
+            : [{ id: -1, value: "无此数据" }];
+          cb(newRoleData);
+        } catch (err) {
+          console.log(err.message);
+        }
+      }, 1000);
     },
     handleSelect(item) {
-      console.log(item);
+      if (item.id === -1) {
+        this.name = "";
+      } else {
+        this.setParams({ id: item.id, currentPage: 1 });
+        this.getRoleData();
+      }
     },
-    handleClear(item) {},
+    handleClear(item) {
+      this.setParams({ [item]: "" });
+      this.getRoleData();
+    },
+    handleAdd() {
+      this.$router.push({ name: "Add" });
+    },
   },
 };
 </script>
